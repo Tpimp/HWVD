@@ -1,6 +1,9 @@
-# HWVD
-华为太空人仪表盘 qml版
+# HWVD Kraken Clock Example
+forked from [HWVD by DreamLife-Jianwei](https://github.com/DreamLife-Jianwei/HWVD)
 
-目前仅适用qml实现了时间显示，其他均为文字内容
+Modified to run on the Kraken Z display using the [Kraken Z Playground](https://github.com/ProtozeFOSS/KrakenZPlayground) application.
 
-详见：https://blog.csdn.net/z609932088/article/details/115796135?spm=1001.2014.3001.5501
+To use:
+
+- Download or clone this repository
+- Open the main.qml file of this project in KZP and enjoy
