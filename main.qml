@@ -139,7 +139,7 @@ Rectangle{
         }
         Image{
             id:heartIcon
-            source:"images/other1.png"
+            source:"images/heart.png"
             width:36
             height:36
             fillMode:Image.PreserveAspectFit
