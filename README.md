@@ -10,4 +10,6 @@ Icon from Online Web Fonts / [Icon Fonts](http://www.onlinewebfonts.com/icon) is
 To install -
 - Download or clone this repository
 - Copy the contents into a "Space Clock" directory in the Kraken Z Playground Application Data directory [check here](https://doc.qt.io/qt-5/qstandardpaths.html#StandardLocation-enum)
+  - ![image](https://user-images.githubusercontent.com/2994631/163087954-d10b7416-a97f-4251-b50e-243a708c14fa.png)
+
 - Using Kraken Z Playground select the main.qml file
