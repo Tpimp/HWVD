@@ -1,6 +1,8 @@
 # HWVD Kraken Clock Example
 forked from [HWVD by DreamLife-Jianwei](https://github.com/DreamLife-Jianwei/HWVD)
 
+![Space_Clock](https://user-images.githubusercontent.com/2994631/163454974-8674a055-554f-40a6-a211-36c859a826ca.gif)
+
 Modified to run on the Kraken Z display using the [Kraken Z Playground](https://github.com/ProtozeFOSS/KrakenZPlayground) application.
 
 
