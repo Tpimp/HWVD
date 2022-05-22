@@ -17,7 +17,7 @@ Rectangle{
         }
     }
     Connections{
-        target:KrakenZDriver
+        target:DeviceConnection
         function onPumpSpeedChanged(speed : int) {
             if(speed > space.highPumpRpm) {
                 space.highPumpRpm = speed;
@@ -92,7 +92,7 @@ Rectangle{
             font.pixelSize: 18
             font.bold: true
             font.letterSpacing: 1
-            text:KrakenZDriver.fanDuty + "%"
+            text:DeviceConnection.fanDuty + "%"
             anchors{
                 top:parent.top
                 topMargin:69
@@ -130,7 +130,7 @@ Rectangle{
             font.pixelSize: 22
             font.bold:true
             font.letterSpacing: 1
-            text: KrakenZDriver.fanSpeed
+            text: DeviceConnection.fanSpeed
             anchors{
                 left:fanIcon.right
                 verticalCenter: fanIcon.verticalCenter
@@ -159,7 +159,7 @@ Rectangle{
             leftPadding:2
             font.pixelSize: 20
             font.bold:true
-            text:KrakenZDriver.pumpDuty
+            text:DeviceConnection.pumpDuty
             anchors{
                 left:heartIcon.right
                 verticalCenter: heartIcon.verticalCenter
@@ -276,6 +276,19 @@ Rectangle{
                 left: lowTemp.right
             }
         }
+        Image{
+            id:waterDrop
+            source:"images/water-drop.png"
+            height:24
+            fillMode: Image.PreserveAspectFit
+            anchors{
+                top: upArrow.top
+                topMargin:5
+                left: upArrow.right
+                leftMargin:5
+            }
+            rotation:10
+        }
     }
     Text {
         id:time
@@ -299,7 +312,7 @@ Rectangle{
     }
     Component.onCompleted: {
         AppController.setFrameDelay(85);
-        var temp = KrakenZDriver.liquidTemperature.toFixed() + "°";
+        var temp = DeviceConnection.liquidTemperature.toFixed() + "°";
         liquidTemp.text = temp + "C";
         lowTemp.text = temp;
         highTemp.text = temp;

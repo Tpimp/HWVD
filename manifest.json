@@ -1,0 +1,11 @@
+{
+    "name":"Space Clock",
+    "contentType":"Qml",
+    "version":2,
+    "versionText":"v0.2",
+    "icon":"images/space_clock_icon.png",
+    "entry":"main.qml",
+    "files":["fonts/DigifaceWide.ttf", "images/arrow.png",
+             "images/human.gif", "images/back.png", "images/heart.png",
+             "images/other6.png", "images/cpu-fan.png", "images/water-drop.png"]
+}
