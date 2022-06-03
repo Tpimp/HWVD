@@ -107,7 +107,7 @@ Rectangle{
             width: 108
             height: 120
             fillMode:Image.PreserveAspectFit
-            source: "images/human.gif"
+            source: "images/astronaut.gif"
             speed: (40/AppController.frameDelay) + .125
             playing:true
         }
@@ -310,12 +310,161 @@ Rectangle{
         font.weight: Font.Light
         font.pixelSize: 32
     }
+    Text{
+        id:cpuLabel
+        anchors{
+            bottom:parent.bottom
+            left:parent.left
+            leftMargin:56
+            bottomMargin:52
+        }
+        color:"#333333"
+        font.pixelSize:12
+        font.letterSpacing: -1
+        text:"CPU %"
+    }
+
+    Rectangle{
+        height:12
+        width:80
+        radius:10
+        anchors{
+            verticalCenter: cpuContainer.verticalCenter
+            left:cpuContainer.right
+            leftMargin:-4
+        }
+        Rectangle{
+            color:"#f3ce78"
+            height:12
+            radius:4
+            border.color: "#c4a63b"
+            width:4+ (cpuContainer.cpuLoad/100 * 76);
+            anchors{
+                verticalCenter: parent.verticalCenter
+                left:parent.left
+            }
+        }
+    }
+    Rectangle{
+        id: cpuContainer
+        radius:6
+        color:"#515151"
+        width:28
+        height:18
+        anchors{
+            verticalCenter: cpuLabel.verticalCenter
+            verticalCenterOffset: 4
+            left: parent.left
+            leftMargin: 94
+        }
+        property real cpuLoad: 0.0
+        onCpuLoadChanged: {
+            cpuLoadText.text = this.cpuLoad.toFixed(1).padStart(4,'0');
+        }
+
+        Text{
+            id:cpuLoadText
+            anchors.fill: parent
+            horizontalAlignment: Text.AlignHCenter
+            verticalAlignment: Text.AlignVCenter
+            font.pixelSize: 9
+            text: "0.0"
+            color:"white"
+        }
+    }
+    Text{
+        id:cpuLabelSide
+        rotation:90
+        property real cpuTemp: 0
+        horizontalAlignment: Text.AlignLeft
+        color:"#333333"
+        leftPadding:2
+        font.pixelSize: 12
+        font.letterSpacing: 1
+        text: "CPU"
+        font.bold: true
+        anchors{
+            bottom:parent.bottom
+            bottomMargin:46
+            horizontalCenter: parent.horizontalCenter
+            horizontalCenterOffset:51
+        }
+    }
+    Text{
+        id:tempLabel
+        horizontalAlignment: Text.AlignLeft
+        color:"#333333"
+        leftPadding:2
+        font.pixelSize: 12
+        font.letterSpacing: 1
+        text: "Temp"
+        font.bold: true
+        anchors{
+            bottom:parent.bottom
+            bottomMargin:24
+            horizontalCenter: parent.horizontalCenter
+            horizontalCenterOffset:50
+        }
+    }
+    Text{
+        id:cpuTemp
+        property real cpuTemp: 0
+        onCpuTempChanged: {
+            this.text = this.cpuTemp.toFixed(1) + "°C";
+        }
+
+        horizontalAlignment: Text.AlignLeft
+        color:"#333333"
+        leftPadding:2
+        font.pixelSize: 18
+        font.letterSpacing: 1
+        text:"0.0"
+        anchors{
+            bottom:parent.bottom
+            bottomMargin:12
+            horizontalCenter: parent.horizontalCenter
+            horizontalCenterOffset: -2
+        }
+    }
+
+    Connections{
+        id:systemWatch
+        target:SystemMonitor
+        function connect() {
+            let loads = SystemMonitor.sensorsByType("Load", "cpu");
+            let temps = SystemMonitor.sensorsByType("Temperature", "cpu");
+            if(temps.length > 0) {
+                SystemMonitor.connectOn(temps[0], cpuTemp, "cpuTemp")
+            }
+            if(loads.length){
+                SystemMonitor.connectOn(loads[0], cpuContainer, "cpuLoad")
+            }
+            systemWatch.connected = true;
+        }
+        function release(){
+            SystemMonitor.releaseAll(cpuTemp);
+            SystemMonitor.releaseAll(cpuContainer);
+        }
+
+        property bool connected:false
+        function onSensorsReady() {
+            if(this.connected) {
+                systemWatch.release();
+            }
+            systemWatch.connect();
+        }
+    }
+
+
     Component.onCompleted: {
-        AppController.setFrameDelay(85);
         var temp = DeviceConnection.liquidTemperature.toFixed() + "°";
         liquidTemp.text = temp + "C";
         lowTemp.text = temp;
         highTemp.text = temp;
+        AppController.setFrameDelay(185);
+        if(SystemMonitor.isReady()) {
+            systemWatch.connect();
+        }
 
     }
 }
