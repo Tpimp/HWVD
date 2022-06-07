@@ -1,0 +1,7 @@
+{
+    "name": "Space Clock",
+    "type":3,
+    "icon":"images/space_clock_icon.png",
+    "url":"https://raw.githubusercontent.com/Tpimp/HWVD/master/repo.json",
+    "modules":["module.json"]
+}
